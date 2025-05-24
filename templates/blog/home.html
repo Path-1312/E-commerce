@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <title>Blog</title>
+    <link rel="icon" href="{% static 'blog/images.png' %}" type="image/png">
+  </head>
+  <body>
+
+
+ 
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/"><img src="{% static 'blog/images.png' %} " height=20>Blog</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact us/">Contact Us</a>
+          </li>
+          </li>
+            <li>
+              <a class="nav-link" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Cart</a>
+            </li>
+  
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                  <div class="card card-body">
+                      This is cart
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav><br><br>
+
+    <style>
+      .col-md-3 {
+          display: inline-block;
+          margin-left: -4px;
+      }
+
+      .col-md-3 {
+          width: 100%;
+          height: auto;
+      }
+
+      body .carousel-control-indicator li {
+          background-color: blue;
+      }
+
+      body .carousel-control-prev-icon body .carousel-control-next-icon {
+          background-color: blue;
+      }
+
+      body .no-padding {
+          padding-left: 0;
+          padding-right: 0;
+      }
+
+      .carousel-control-prev-icon {
+          background: black no-repeat center center;
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3e%3c/svg%3e");
+      }
+
+      .carousel-control-next-icon {
+          background: black no-repeat center center;
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e");
+
+      }
+      body .carousel-indicators{
+      bottom:0;
+      }
+
+      .carousel-indicators .active{
+      background-color: blue;
+      }
+      .col-md-3 img {
+        width: 200px;
+        height: 200px;
+    }
+
+
+  </style>
+
+
+</head>
+
+<body>
+
+
+
+
+<div class="container" xmlns:data="http://www.w3.org/1999/xhtml">
+  <div id="demo" class="carousel slide my-3" data-ride="carousel">
+      <ul class="carousel-indicators">
+          <li data-target="#demo" data-slide-to="0" class="active"></li>
+  {% for i in range %}
+     <li data-target="#demo" data-slide-to="{{i}}" ></li>
+  {% endfor %}
+</ul>
+
+
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+          <a href="/product/">
+          <div class="col-xs-3 col-sm-3 col-md-3">
+            <div class="card" style="height: 25rem;">
+              <img src='/media/{{product.0.image}}' class="card-img-top" style="display: block; margin: 0 auto; vertical-align: middle">
+              <div class="card-body">
+                <h5 class="card-title">{{product.0.product_name}}</h5>
+                <p class="card-text">{{product.0.description}}</p></a>
+                <a href="#" class="btn btn-primary">Add to Cart</a>
+                <span class="badge badge-dark">Stock left:{{product.0.number_of_stock}}</span>
+              </div>
+            </div>
+          </div>
+
+          {% for i in product|slice:"1:" %}
+          <a href="/product/">
+          <div class="col-xs-3 col-sm-3 col-md-3">
+            <div class="card" style="height: 25rem;">
+              <img src='/media/{{i.image}}' class="card-img-top" style="display: block; margin: 0 auto; vertical-align: middle">
+              <div class="card-body">
+                <h5 class="card-title">{{i.product_name}}</h5>
+                <p class="card-text">{{i.description}}</p></a>
+                <a href="#" class="btn btn-primary">Add to Cart</a>
+                <span class="badge badge-dark">Stock left:{{i.number_of_stock}}</span>
+              </div>
+            </div>
+          </div>
+
+          {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+           </div><div class="carousel-item">
+          {% endif%}
+
+          {% endfor %}
+    </div>
+
+    </div>
+      </div>
+            </div>
+
+
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>  
+  </body>
+  {% comment %} <body>
+    {% load static %}
+    <a href="{% static 'blog/hello.txt' %}">Click</a>
+  </body> {% endcomment %}
+
+  <link rel="icon" href="{% static 'blog/images.png' %}" type="image/png">
+</html>
+
+
+

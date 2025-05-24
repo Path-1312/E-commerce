@@ -1,0 +1,28 @@
+{% extends "blog/basic.html" %}
+
+{% block title %}{{product.0.product_name}}{% endblock %}
+
+{% block body %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">{{product.0.product_name}}</h1>
+      <p class="lead">Price: ₹{{product.0.price}}</p>
+      <p class="lead">Category: {{product.0.category}}, Sub Category:{{product.0.sub_category}}</p>
+      <div class="media">
+        <img src="/media/{{product.0.image}}" class="align-self-center mr-3" height=250>
+        <div class="media-body">
+          <h4 class="mt-0">Description:</h4>
+          <p>{{product.0.description}}</p>
+        </div>
+      </div>
+      <hr class="my-4">
+      <a class="btn btn-primary" href="#" role="button">Add to Cart</a>
+      <span class="badge badge-dark">Stock left:{{product.0.number_of_stock}}</span>
+    </div>
+  </div>
+
+
+
+
+{% endblock %}
