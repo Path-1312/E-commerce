@@ -121,7 +121,7 @@
               <img src='/media/{{product.0.image}}' class="card-img-top" style="display: block; margin: 0 auto; vertical-align: middle">
               <div class="card-body">
                 <h5 class="card-title">{{product.0.product_name}}</h5>
-                <p class="card-text">{{product.0.description}}</p></a>
+                <p class="card-text">{{product.0.description|truncatewords:10}}</p></a>
                 <a href="#" class="btn btn-primary">Add to Cart</a>
                 <span class="badge badge-dark">Stock left:{{product.0.number_of_stock}}</span>
               </div>
@@ -135,7 +135,7 @@
               <img src='/media/{{i.image}}' class="card-img-top" style="display: block; margin: 0 auto; vertical-align: middle">
               <div class="card-body">
                 <h5 class="card-title">{{i.product_name}}</h5>
-                <p class="card-text">{{i.description}}</p></a>
+                <p class="card-text">{{i.description|truncatewords:5}}</p></a>
                 <a href="#" class="btn btn-primary">Add to Cart</a>
                 <span class="badge badge-dark">Stock left:{{i.number_of_stock}}</span>
               </div>

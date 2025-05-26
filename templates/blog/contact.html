@@ -2,7 +2,63 @@
 
 {% block title %}Contact Us{% endblock %}
 
-{% block body %} This is our contact {% endblock %}
+{% block body %} 
+{% load static %}
+<div class="jumbotron jumbotron-fluid" style="width: 800px; margin:0 auto; ">
+
+<div class="d-flex justify-content-center">
+  <div class="media">
+    <img src="{% static 'blog/images.png' %}" class="mr-3" style="height:50px">
+    <div class="media-body">
+      <h1 class="mt-0">Contact Us</h1>
+
+      <p>We’d love to hear from you! Whether you have a question about your order, want to collaborate, <br>or just want to say hi — reach out and we'll get back to you as soon as we can.</p>
+    </div>
+  </div>
+</div>
+<hr class="my-1" style="height: 20px;">
+
+    <div class="container">
+        <div class="media">
+            <img src="{% static 'blog/contact.png' %}" class="mr-3" style="height:70px">
+            <div class="media-body">
+              <h4 class="mt-0">Call us</h4>
+              <p><b>Customer Support Hours</b>: Mon–Fri, 9AM – 5PM (Your Time Zone)<br>
+                <b>Phone</b>: +1 (123) 456-7890</p>
+    </div>
+</div>
+  <hr class="my-4">
+        <div class="media">
+            <img src="{% static 'blog/email.jpg' %}" class="mr-3" style="height:70px">
+            <div class="media-body">
+              <h4 class="mt-0">Email ID</h4>
+              <p><b>General Inquiries</b>: support@blog.com<br>
+                <b>Partnerships & Collaborations</b>: partnerships@blog.com<br>
+                <b>Press & Media</b>: media@blog.com</p>
+
+
+        </div>
+  </div>
+
+
+  <hr class="my-4">
+      <div class="media">
+          <img src="{% static 'blog/follow.png' %}" class="mr-3" style="height:70px">
+          <div class="media-body">
+            <h4 class="mt-0">Follow Us</h4>
+            <p>Stay connected and get the latest updates, tips, and deals:<br>
+              <b>Instagram</b>: @blog<br>
+              <b>Facebook</b>: blog<br>
+              <b>Twitter/X</b>: @blog_official</p>
+
+
+      </div>
+</div>
+
+</div>
+
+
+{% endblock %}
 
 
 
