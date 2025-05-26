@@ -1,24 +1,24 @@
 {% extends "blog/basic.html" %}
 
-{% block title %}{{product.0.product_name}}{% endblock %}
+{% block title %}{{product.product_name}}{% endblock %}
 
 {% block body %}
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4">{{product.0.product_name}}</h1>
-      <p class="lead">Price: ₹{{product.0.price}}</p>
-      <p class="lead">Category: {{product.0.category}}, Sub Category:{{product.0.sub_category}}</p>
+      <h1 class="display-4">{{product.product_name}}</h1>
+      <p class="lead">Price: ₹{{product.price}}</p>
+      <p class="lead">Category: {{product.category}}, Sub Category:{{product.sub_category}}</p>
       <div class="media">
-        <img src="/media/{{product.0.image}}" class="align-self-center mr-3" height=250>
+        <img src="/media/{{product.image}}" class="align-self-center mr-3" height=250>
         <div class="media-body">
           <h4 class="mt-0">Description:</h4>
-          <p>{{product.0.description}}</p>
+          <p>{{product.description}}</p>
         </div>
       </div>
       <hr class="my-4">
       <a class="btn btn-primary" href="#" role="button">Add to Cart</a>
-      <span class="badge badge-dark">Stock left:{{product.0.number_of_stock}}</span>
+      <span class="badge badge-dark">Stock left:{{product.number_of_stock}}</span>
     </div>
   </div>
 

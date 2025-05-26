@@ -1,15 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Product
-import math
+from math import ceil
 
 
 def function(request):
-    products = Product.objects.all()
-    n = len(products)
-    nSlides = n//4 + math.ceil((n/4) - (n//4))
-    
-    params = {'product': products, 'number_of_slides': nSlides, 'range': range(1, nSlides)}
+    allProds = []
+    catprods = Product.objects.values('category', 'id')
+    cats = {item['category'] for item in catprods}
+    for cat in cats:
+        prod = Product.objects.filter(category=cat)
+        n = len(prod)
+        nSlides = n // 4 + ceil((n / 4) - (n // 4))
+        allProds.append([prod, range(1, nSlides), nSlides])
+    params = {'allProds':allProds}
     return render(request, 'blog/home.html', params)
 
 def about(request):
@@ -21,9 +25,9 @@ def contact(request):
 def cart(request):
     return render(request, 'blog/cart.html')
 
-def prod(request):
-    products = Product.objects.all()
-    param = {'product': products}
+def prod(request, myid):
+    product = Product.objects.filter(id=myid)
+    param = {'product': product[0]}
     return render(request, 'blog/product.html', param)
 
 
