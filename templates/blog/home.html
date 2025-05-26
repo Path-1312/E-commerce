@@ -84,7 +84,17 @@
       .carousel-indicators .active {
         background-color: #000000;
       }
-
+      a {
+        color:rgb(0, 0, 0);
+        text-decoration: none;
+      }
+      
+      a:hover {
+        color:rgb(57, 80, 105);
+        text-decoration: underline;
+      }
+      
+    
 
       
   </style>
@@ -93,7 +103,6 @@
 </head>
 
 <body>
-
 
 
 
@@ -111,7 +120,7 @@
 <div class="container">
 
   {% for product, range, nSlides in allProds %}
-  <h5 class="my-4">{{product.0.category}}</h5>
+  <h3 class="my-4">{{product.0.category}}</h3>
   <div class="row">
 <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
   <ul class="carousel-indicators">
@@ -130,15 +139,16 @@
 
       {% for i in product %}
       <div class="col-xs-3 col-sm-3 col-md-3">
-        <div class="card" style="height: 25rem; background-color: rgb(173, 166, 180);">
+        <div class="card" style="height: 28rem; background-color: rgb(173, 166, 180);">
           <a href="/product/{{i.id}}">
           <img src='/media/{{i.image}}' class="card-img-top" style="display: block; margin: 0 auto; vertical-align: middle">
           <div class="card-body">
-            <h5 class="card-title">{{i.product_name}}</h5>
-            <p class="card-text">{{i.description|slice:"0:50"}}...</p>
+            <h5 class="card-title">{{i.product_name|slice:"0:25"}}...</h5>
+            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|slice:"0:50"}}...</p>
           </a>
+          <hr>
             <button id="pr{{i.id}}" class="btn btn-secondary cart">Add To Cart</button>
-            
+            <span class="badge badge-secondary">Stock left: {{product.number_of_stock}}</span>
           </div>
         </div>
       </div>
@@ -153,6 +163,8 @@
 
 </div>
 </div>
+
+
 
   <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
       <span class="carousel-control-prev-icon"></span>
