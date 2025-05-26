@@ -2,7 +2,31 @@
 
 {% block title %}About{% endblock %}
 
-{% block body %} This is about us {% endblock %}
+{% block body %}
+{% load static %}
+
+<div class="jumbotron jumbotron-fluid" style="width: 800px; margin:0 auto; ">
+<div class="container">
+      <center><h1 class="mt-0">📝 About Us</h1></center>
+      <div align="center">
+      <img src="{% static 'blog/about.jpeg' %}" style="height: 250px;" class="align-self-center mr-3">
+      </div>
+<hr>
+
+      <p class="lead">Welcome to Blog, your go-to platform for insightful articles, expert opinions, and thought-provoking content across a wide range of topics. Whether you're here to stay updated on the latest trends, learn something new, or simply enjoy a good read, we've got something for everyone.</p>
+
+    <p class="lead">At Blog, we believe in the power of words to inform, inspire, and connect people. Our mission is to deliver high-quality content that is both informative and engaging. From lifestyle and technology to personal development and current affairs, our goal is to spark conversations and provide value to our readers.</p>
+        
+    <p class="lead">Our team is made up of passionate writers, creators, and thinkers who are dedicated to making Blog a trusted source of knowledge and creativity. Thank you for being a part of our journey.</p>
+        
+    <p class="lead">Stay curious. Stay inspired.</p>
+    </div>
+  </div>
+
+
+
+
+{% endblock %}
 
 
 
