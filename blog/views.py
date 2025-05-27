@@ -38,9 +38,7 @@ def prod(request, myid):
     param = {'product': product[0]}
     return render(request, 'blog/product.html', param)
 
-from django.shortcuts import render
-from math import ceil
-from .models import Product
+
 
 def category(request, category):  
     allProds = []
