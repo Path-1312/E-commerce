@@ -3,21 +3,25 @@
 {% block title %}{{product.product_name}}{% endblock %}
 
 {% block body %}
-
+{% load static %}
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4">{{product.product_name}}</h1>
       <p class="lead">Price: ₹{{product.price}}</p>
-      <p class="lead">Category: {{product.category}}, Sub Category:{{product.sub_category}}</p>
+      <p class="lead">Category: <a href="/category/{{product.category}}">{{product.category}}</a>, Sub Category:<a href="/category/{{product.category}}/{{product.sub_category}}">{{product.sub_category}}</a></p>
       <div class="media">
+        <a href="/media/{{product.image}}">
         <img src="/media/{{product.image}}" class="align-self-center mr-3" height=250>
+        </a>
         <div class="media-body">
           <h4 class="mt-0">About this item:</h4>
           <p>{{product.description}}</p>
         </div>
       </div>
       <hr class="my-4">
+      {% if product.number_of_stock %}
       <a class="btn btn-primary" href="#" role="button">Add to Cart</a>
+      {% endif %}
       <span class="badge badge-dark">Stock left:{{product.number_of_stock}}</span>
     </div>
   </div>
@@ -26,3 +30,4 @@
 
 
 {% endblock %}
+/category/Electronics/Audio

@@ -3,15 +3,31 @@ import datetime
 from django.core.validators import MinValueValidator
 import os
 
+category_choices = (
+    ('Fashion', 'Fashion'),
+    ('Accessories', 'Accessories'),
+    ('Electronics', 'Electronics'),
+    ('Home', 'Home'),
+    ('Kitchen', 'Kitchenware'),
+    ('Grocery', 'Grocery'),
+    ('Beauty', 'Beauty'),
+    ('Toys', 'Toys'),
+    ('Sports', 'Sports'),
+    ('Stationery', 'Stationery'),
+    ('Automotive', 'Automotive'),
+    ('Pet', 'Pet'),
+    ('Other', "Other")
+)
+
 class Product(models.Model):
     product_name = models.CharField(max_length=50, default='')
-    category = models.CharField(max_length=50, default='')
+    category = models.CharField(max_length=20, choices = category_choices,default='Other')
     sub_category = models.CharField(max_length=50, default='')
     price = models.IntegerField(validators=[MinValueValidator(0)])
     number_of_stock = models.IntegerField(validators=[MinValueValidator(0)])
     description = models.CharField(max_length=200, default='')
     published_date = models.DateField(default=datetime.date.today)
-    image = models.FileField(upload_to='blog/images/', default='')
+    image = models.FileField(upload_to='blog/images/', default='', help_text='Recommended image size: 230×200 pixels')
     
     def __str__(self):
         return self.product_name

@@ -30,11 +30,11 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-              Categories
+              Sub Categories
             </a>
             <div class="dropdown-menu">
             {% for product, range, nSlides in allProds %}
-              <a class="dropdown-item" href="/category/{{product.0.category}}">{{product.0.category}}</a>
+              <a class="dropdown-item" href="/category/{{product.0.category}}/{{product.0.sub_category}}">{{product.0.sub_category}}</a>
             {% endfor %}
             </div>
           </li>
@@ -137,7 +137,8 @@
 <div class="container">
 
   {% for product, range, nSlides in allProds %}
-  <h3 class="my-4"><a href="/category/{{product.0.category}}">{{product.0.category}}</a></h3>
+  {% if product.0.category == category %}
+  <h3 class="my-4"><a href="/category/{{product.0.category}}/{{product.0.sub_category}}">{{product.0.sub_category}}</a></h3>
   <div class="row">
 <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
   <ul class="carousel-indicators">
@@ -199,6 +200,7 @@
   </a>
       </div>
     <hr class="my-5" style="border:1px solid black">
+    {% endif %}
   {% endfor %}
 </div>
 
