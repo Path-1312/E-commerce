@@ -83,7 +83,7 @@
     </style>
   <body>
     <div class="container">
-      <center><h3 class="my-4"><a href="/category/{{category}}">{{ category}}</a> → {{ sub_category }}</h3></center>
+      <center><h3 class="my-4"><a href="/">Category</a> → <a href="/category/{{category}}">{{ category}}</a> → {{ sub_category }}</h3></center>
     <hr class="my-5" style="border:1px solid black">
       {% for i in products %}
         {% if forloop.counter|add:"1"|divisibleby:2 %}
