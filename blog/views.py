@@ -14,24 +14,23 @@ def index():
         nSlides = n // 4 + ceil((n / 4) - (n // 4))
         allProds.append([prod, range(1, nSlides), nSlides])
     return {'allProds':allProds}
+params = index()
 
 def function(request):
-    params = index()
     return render(request, 'blog/home.html', params)
 
 def basic(request):
-    params = index()
     return render(request, 'blog/basic.html', params)
 
 
 def about(request):
-    return render(request, 'blog/about.html')
+    return render(request, 'blog/about.html', params)
 
 def contact(request):
-    return render(request, 'blog/contact.html')
+    return render(request, 'blog/contact.html',params)
 
 def cart(request):
-    return render(request, 'blog/cart.html')
+    return render(request, 'blog/cart.html', params)
 
 def prod(request, myid):
     product = Product.objects.filter(id=myid)
@@ -51,13 +50,29 @@ def category(request, category):
         nSlides = n // 4 + ceil((n / 4) - (n // 4))
         allProds.append([prod, range(1, nSlides), nSlides])
 
-    params = {
+    param = {
         'allProds': allProds,
         'category': category
     }
-    return render(request, 'blog/category.html', params)
+    return render(request, 'blog/category.html', param)
 
 
+def sub_category(request, sub_category):
+    allProds = []
+    scatprods = Product.objects.values('sub_category', 'id').filter(category=category)
+    cats = {item['sub_category'] for item in scatprods}
+
+    for cat in cats:
+        prod = Product.objects.filter(sub_category=cat, category=category)
+        n = len(prod)
+        nSlides = n // 4 + ceil((n / 4) - (n // 4))
+        allProds.append([prod, range(1, nSlides), nSlides])
+
+    param = {
+        'allProds': allProds,
+        'category': category
+    }
+    return render(request, 'blog/category.html', param)
 
 
 

@@ -34,7 +34,7 @@
             </a>
             <div class="dropdown-menu">
             {% for product, range, nSlides in allProds %}
-              <a class="dropdown-item" href="/category/{{product.0.category}}/{{product.0.sub_category}}">{{product.0.sub_category}}</a>
+              <a class="dropdown-item" href="/sub category/{{product.0.sub_category}}">{{product.0.sub_category}}</a>
             {% endfor %}
             </div>
           </li>
@@ -138,7 +138,7 @@
 
   {% for product, range, nSlides in allProds %}
   {% if product.0.category == category %}
-  <h3 class="my-4"><a href="/category/{{product.0.category}}/{{product.0.sub_category}}">{{product.0.sub_category}}</a></h3>
+  <h3 class="my-4"><a href="/sub category/{{product.0.sub_category}}">{{product.0.sub_category}}</a></h3>
   <div class="row">
 <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
   <ul class="carousel-indicators">

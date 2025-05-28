@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="icon" href="{% static 'blog/images.png' %}" type="image/png">
+  </head>
+  <body style="background-color:rgb(173, 166, 180)">
+
+
+ 
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgba(13, 0, 192, 0.37)">
+      <a class="navbar-brand" href="/"><img src="{% static 'blog/images.png' %}" height=20>Blog</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact us/">Contact Us</a>
+          </li>
+          </li>
+            <li style="position: absolute; right: 20px">
+              <a class="nav-link" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Cart</a>
+            </li>
+            <a href="/cart/">
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                  <div class="card card-body" style="width: 300px; margin-top: 35px; position: absolute; right: 30px">
+                      This is cart
+                  </div>
+                </div>
+              </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav><br><br>
+    {% block body %} {% endblock %}
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>  
+
+    <style>
+
+      a {
+        color:rgb(0, 0, 0);
+        text-decoration: none;
+      }
+      
+      a:hover {
+        color:rgb(57, 80, 105);
+        text-decoration: underline;
+      }
+      {% block style %}  {% endblock %}
+    </style>
+
+
+  </body>
+</html>

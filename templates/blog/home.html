@@ -107,7 +107,7 @@
       }
       
       a:hover {
-        color:rgb(57, 80, 105);
+        color:rgb(71, 96, 122);
         text-decoration: underline;
       }
       
@@ -163,16 +163,20 @@
           <div class="card-img-overlay">
           <p class="card-text" style="color:rgb(225, 225, 225); margin-top: 2rem; text-align: center; font-size: 40px">Sold out</p>
           </div>
-          {% else %}
-          <img src='/media/{{i.image}}' class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle">
-          {% endif %}
-
           <div class="card-body">
             <h5 class="card-title">{{i.product_name|truncatechars:25}}</h5>
             <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:50}}...</p>
           </a>
           <hr>
-            <button id="pr{{i.id}}" class="btn btn-secondary cart">Add To Cart</button>
+          {% else %}
+          <img src='/media/{{i.image}}' class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle">
+          <div class="card-body">
+            <h5 class="card-title">{{i.product_name|truncatechars:25}}</h5>
+            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:50}}...</p>
+          </a>
+          <hr>
+          <button id="pr{{i.id}}" class="btn btn-secondary cart">Add To Cart</button>
+          {% endif %}
             <span class="badge badge-secondary">Stock: {{i.number_of_stock}}</span>
           </div>
         </div>
@@ -182,6 +186,7 @@
       {% endif %}
 
       {% endfor %}
+    
   </div>
 
 

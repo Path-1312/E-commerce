@@ -20,12 +20,12 @@ category_choices = (
 )
 
 class Product(models.Model):
-    product_name = models.CharField(max_length=50, default='')
+    product_name = models.CharField(max_length=100, default='')
     category = models.CharField(max_length=20, choices = category_choices,default='Other')
     sub_category = models.CharField(max_length=50, default='')
     price = models.IntegerField(validators=[MinValueValidator(0)])
     number_of_stock = models.IntegerField(validators=[MinValueValidator(0)])
-    description = models.CharField(max_length=200, default='')
+    description = models.CharField(max_length=400, default='')
     published_date = models.DateField(default=datetime.date.today)
     image = models.FileField(upload_to='blog/images/', default='', help_text='Recommended image size: 230×200 pixels')
     
