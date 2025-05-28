@@ -2,10 +2,11 @@
 <html lang="en">
   <head>
     {% load static %}
+    {% load humanize %}
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-    <title>{% block title %} {% endblock %}</title>
+    <title>{{category}}/{{sub_category}}</title>
     <link rel="icon" href="{% static 'blog/images.png' %}" type="image/png">
   </head>
   <body style="background-color:rgb(173, 166, 180)">
@@ -45,7 +46,6 @@
         </ul>
       </div>
     </nav><br><br>
-    {% block body %} {% endblock %}
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -53,6 +53,18 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>  
 
     <style>
+      .col-md-3
+      {
+      display: inline-block;
+      margin-left: 20px;
+      }
+
+
+      .col-md-3 img{
+
+      width: 170px;
+      height: 200px;
+      }
 
       a {
         color:rgb(0, 0, 0);
@@ -63,9 +75,72 @@
         color:rgb(57, 80, 105);
         text-decoration: underline;
       }
-      {% block style %}  {% endblock %}
-    </style>
 
+      .card{
+        overflow: hidden
+      }
+
+    </style>
+  <body>
+    <div class="container">
+      <center><h3 class="my-4"><a href="/category/{{category}}">{{ category}}</a> → {{ sub_category }}</h3></center>
+    <hr class="my-5" style="border:1px solid black">
+      {% for i in products %}
+        {% if forloop.counter|add:"1"|divisibleby:2 %}
+          <div class="row mb-4 justify-content-center">
+        {% endif %}
+    
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <div class="card" style="background-color: rgb(173, 166, 180); height: 31rem">
+            <a href="/product/{{i.id}}">
+              {% if not i.number_of_stock %}
+              <img src="/media/{{i.image}}" class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle; filter: brightness(30%)">
+              <div class="card-img-overlay">
+                <p class="card-text" style="color:rgb(225, 225, 225); margin-top: 2rem; text-align: center; font-size: 40px">Sold Out</p>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{i.product_name|truncatechars:25}}</h5>
+                <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:50}}...</p>
+              </a>
+                        <hr>
+          <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>
+              <hr>
+                <span class="badge badge-secondary">Arriving Soon</span>
+              </div>
+            </div>
+          </div>
+              {% else %}
+              <img src="/media/{{i.image}}" class="d-block w-100" tyle="display: block; margin: 0 auto; vertical-align: middle">
+              <div class="card-body">
+                <h5 class="card-title">{{i.product_name|truncatechars:25}}</h5>
+                <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:50}}...</p>
+              </a>
+              <hr>
+              <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>
+              <hr>
+                <button id="pr{{i.id}}" class="btn btn-secondary cart">Add To Cart</button>
+                <span class="badge badge-secondary">Stock: {{i.number_of_stock}}</span>
+              </div>
+            </div>
+          </div>
+              {% endif %}
+    
+        {% if forloop.counter|divisibleby:2 and forloop.counter > 0 and not forloop.last %}
+          </div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="/category/{{category}}">Previous</a></li>
+      </ul>
+    </nav>    
 
   </body>
 </html>
+
+
+
+
+

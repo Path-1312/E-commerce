@@ -2,10 +2,11 @@
 <html lang="en">
   <head>
     {% load static %}
+    {% load humanize %}
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-    <title>Blog</title>
+    <title>{{category}}</title>
     <link rel="icon" href="{% static 'blog/images.png' %}" type="image/png">
   </head>
   <body style="background-color:rgb(173, 166, 180)">
@@ -135,7 +136,8 @@
 
 
 <div class="container">
-
+  <center><h3 class="my-4"><a href="/">Category</a> → {{ category }}</h3></center>
+  <hr class="my-5" style="border:1px solid black">
   {% for product, range, nSlides in allProds %}
   {% if product.0.category == category %}
   <h3 class="my-4"><a href="/sub category/{{product.0.sub_category}}">{{product.0.sub_category}}</a></h3>
@@ -157,27 +159,40 @@
 
       {% for i in product %}
       <div class="col-xs-3 col-sm-3 col-md-3">
-        <div class="card" style="height: 28rem; background-color: rgb(173, 166, 180);">
+        <div class="card" style="height: 31rem; background-color: rgb(173, 166, 180);">
           <a href="/product/{{i.id}}">
           {% if not i.number_of_stock %}
           <img src='/media/{{i.image}}' class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle; filter: brightness(30%)">
           <div class="card-img-overlay">
           <p class="card-text" style="color:rgb(225, 225, 225); margin-top: 2rem; text-align: center; font-size: 40px">Sold out</p>
           </div>
-          {% else %}
-          <img src='/media/{{i.image}}' class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle">
-          {% endif %}
-
           <div class="card-body">
             <h5 class="card-title">{{i.product_name|truncatechars:25}}</h5>
             <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:50}}...</p>
           </a>
+          <hr>
+          <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>
+          <hr>
+            <span class="badge badge-secondary">Arriving Soon</span>
+          </div>
+        </div>
+      </div>
+          {% else %}
+          <img src='/media/{{i.image}}' class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle">
+          <div class="card-body">
+            <h5 class="card-title">{{i.product_name|truncatechars:25}}</h5>
+            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:50}}...</p>
+          </a>
+          <hr>
+          <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>
           <hr>
             <button id="pr{{i.id}}" class="btn btn-secondary cart">Add To Cart</button>
             <span class="badge badge-secondary">Stock: {{i.number_of_stock}}</span>
           </div>
         </div>
       </div>
+          {% endif %}
+
       {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
     </div><div class="carousel-item">
       {% endif %}
@@ -202,6 +217,12 @@
     <hr class="my-5" style="border:1px solid black">
     {% endif %}
   {% endfor %}
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="/">Previous</a></li>
+    </ul>
+  </nav>
 </div>
 
 

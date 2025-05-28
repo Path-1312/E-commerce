@@ -4,10 +4,11 @@
 
 {% block body %}
 {% load static %}
+{% load humanize %}
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4">{{product.product_name}}</h1>
-      <p class="lead">Price: ₹{{product.price}}</p>
+      <p class="lead">Price: ₹{{product.price|intcomma}}</p>
       <p class="lead">Category: <a href="/category/{{product.category}}">{{product.category}}</a>, Sub Category:<a href="/sub category/{{product.sub_category}}">{{product.sub_category}}</a></p>
       <div class="media">
         <a href="/media/{{product.image}}">
@@ -21,6 +22,8 @@
       <hr class="my-4">
       {% if product.number_of_stock %}
       <a class="btn btn-primary" href="#" role="button">Add to Cart</a>
+      {% else %}
+      <span class="badge badge-dark">Arriving Soon</span>
       {% endif %}
       <span class="badge badge-dark">Stock left:{{product.number_of_stock}}</span>
     </div>
