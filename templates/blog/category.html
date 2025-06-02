@@ -71,6 +71,13 @@
       }
 
 
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15)
+      }
+
+      .card:hover{
+        box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.69)
+      }
 
       body .carousel-control-prev-icon,
       body .carousel-control-next-icon{
@@ -122,19 +129,6 @@
 
 <body>
 
-
-
-<div class="container">
-  <div id="demo" class="carousel slide my-3" data-ride="carousel">
-      <ul class="carousel-indicators">
-          <li data-target="#demo" data-slide-to="0" class="active"></li>
-  {% for i in range %}
-     <li data-target="#demo" data-slide-to="{{i}}" ></li>
-  {% endfor %}
-</ul>
-
-
-
 <div class="container">
   <center><h3 class="my-4"><a href="/">Category</a> → {{ category }}</h3></center>
   <hr class="my-5" style="border:1px solid black">
@@ -167,8 +161,8 @@
           <p class="card-text" style="color:rgb(225, 225, 225); margin-top: 2rem; text-align: center; font-size: 40px">Sold out</p>
           </div>
           <div class="card-body">
-            <h5 class="card-title">{{i.product_name|truncatechars:25}}</h5>
-            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:50}}...</p>
+            <h5 class="card-title">{{i.product_name|truncatechars:22}}</h5>
+            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:60}}</p>
           </a>
           <hr>
           <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>
@@ -180,8 +174,8 @@
           {% else %}
           <img src='/media/{{i.image}}' class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle">
           <div class="card-body">
-            <h5 class="card-title">{{i.product_name|truncatechars:25}}</h5>
-            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:50}}...</p>
+            <h5 class="card-title">{{i.product_name|truncatechars:22}}</h5>
+            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:60}}</p>
           </a>
           <hr>
           <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>

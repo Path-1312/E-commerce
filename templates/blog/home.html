@@ -70,7 +70,15 @@
       height: 200px;
       }
 
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+      }
 
+      .card:hover{
+        box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.69);
+      }
 
       body .carousel-control-prev-icon,
       body .carousel-control-next-icon{
@@ -111,8 +119,63 @@
         color:rgb(71, 96, 122);
         text-decoration: underline;
       }
-      
-    
+     
+      .partition {
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        box-sizing: border-box;
+      }
+  
+      .product-image{
+        flex: 0 0 50%;
+      }
+
+      .product-name {
+        flex: 0 0 10%;
+        font-size: 1rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center
+      }
+  
+      .product-description {
+        flex: 0 0 30%;
+        font-size: 0.85rem;
+        color: #555;
+        overflow-y: auto;
+      }
+  
+      .product-price {
+        flex: 0.8;
+        font-size: 1rem;
+        color: green;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+      }
+  
+      .add-to-cart {
+        flex: 0.5;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+  
+      .add-to-cart button {
+        background-color:rgb(56, 81, 165);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.75em;
+      }
+  
+      .add-to-cart button:hover {
+        background-color:rgb(33, 48, 97);
+      }
+  
 
       
   </style>
@@ -126,12 +189,7 @@
 
 <div class="container">
   <div id="demo" class="carousel slide my-3" data-ride="carousel">
-      <ul class="carousel-indicators">
-          <li data-target="#demo" data-slide-to="0" class="active"></li>
-  {% for i in range %}
-     <li data-target="#demo" data-slide-to="{{i}}" ></li>
-  {% endfor %}
-</ul>
+
 
 
 
@@ -157,32 +215,48 @@
 
       {% for i in product %}
       <div class="col-xs-3 col-sm-3 col-md-3">
-        <div class="card" style="height: 31rem; background-color: rgb(173, 166, 180);">
+        <div class="card" style="height: 31rem; width: 15rem; background-color: rgb(173, 166, 180);">
           <a href="/product/{{i.id}}">
           {% if not i.number_of_stock %}
+          <div class="partition product-image">
           <img src='/media/{{i.image}}' class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle; filter: brightness(30%)">
+          </div>
+          <div class="card-body">
           <div class="card-img-overlay">
           <p class="card-text" style="color:rgb(225, 225, 225); margin-top: 2rem; text-align: center; font-size: 40px">Sold out</p>
           </div>
-          <div class="card-body">
-            <h5 class="card-title">{{i.product_name|truncatechars:25}}</h5>
-            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:50}}...</p>
+          <div class="partition product-name">
+            <h5 class="card-title">{{i.product_name|truncatechars:22}}</h5>
+          </div>
+          <div class="partition product-description">
+            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:60}}</p>
+          </div>
           </a>
-          <hr>
+          <div class="partition product-price">
           <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>
-          <hr>
+          </div>
+          <div class="partiton add-to-cart">
           <span class="badge badge-secondary">Arriving Soon</span>
+          </div>
           {% else %}
+          <div class="partition product-image">
           <img src='/media/{{i.image}}' class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle">
+          </div>
           <div class="card-body">
-            <h5 class="card-title">{{i.product_name|truncatechars:25}}</h5>
-            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:50}}...</p>
+          <div class="partition product-name">
+            <h5 class="card-title">{{i.product_name|truncatechars:22}}</h5>
+          </div>
+          <div class="partition product-description">
+            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:60}}</p>
+          </div>
           </a>
-          <hr>
+          <div class="partition product-price">
           <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>
-          <hr>
-          <button id="pr{{i.id}}" class="btn btn-secondary cart">Add To Cart</button>
+          </div>
+          <div class="partition add-to-cart">
+              <button id="pr{{i.id}}">Add To Cart</button>
           <span class="badge badge-secondary">Stock: {{i.number_of_stock}}</span>
+          </div>
           {% endif %}
           </div>
         </div>

@@ -60,6 +60,14 @@
       }
 
 
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15)
+      }
+
+      .card:hover{
+        box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.69)
+      }
+
       .col-md-3 img{
 
       width: 170px;
@@ -99,8 +107,8 @@
                 <p class="card-text" style="color:rgb(225, 225, 225); margin-top: 2rem; text-align: center; font-size: 40px">Sold Out</p>
               </div>
               <div class="card-body">
-                <h5 class="card-title">{{i.product_name|truncatechars:25}}</h5>
-                <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:50}}...</p>
+                <h5 class="card-title">{{i.product_name|truncatechars:22}}</h5>
+                <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:60}}</p>
               </a>
                         <hr>
           <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>
@@ -112,8 +120,8 @@
               {% else %}
               <img src="/media/{{i.image}}" class="d-block w-100" tyle="display: block; margin: 0 auto; vertical-align: middle">
               <div class="card-body">
-                <h5 class="card-title">{{i.product_name|truncatechars:25}}</h5>
-                <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:50}}...</p>
+                <h5 class="card-title">{{i.product_name|truncatechars:22}}</h5>
+                <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:60}}</p>
               </a>
               <hr>
               <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>
