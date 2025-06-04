@@ -29,6 +29,15 @@
           <li class="nav-item">
             <a class="nav-link" href="/contact us/">Contact Us</a>
           </li>
+                    <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+              Categories
+            </a>
+            <div class="dropdown-menu">
+            {% for product, range, nSlides in allProds %}
+              <a class="dropdown-item" href="/category/{{product.0.category}}">{{product.0.category}}</a>
+            {% endfor %}
+            </div>
           </li>
             <li style="position: absolute; right: 20px">
               <a class="nav-link" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Cart</a>
@@ -94,7 +103,7 @@
       <center><h3 class="my-4"><a href="/">Category</a> → <a href="/category/{{category}}">{{ category}}</a> → {{ sub_category }}</h3></center>
     <hr class="my-5" style="border:1px solid black">
       {% for i in products %}
-        {% if forloop.counter|add:"1"|divisibleby:2 %}
+        {% if forloop.counter|add:"-1"|divisibleby:3 %}
           <div class="row mb-4 justify-content-center">
         {% endif %}
     
@@ -133,7 +142,7 @@
           </div>
               {% endif %}
     
-        {% if forloop.counter|divisibleby:2 and forloop.counter > 0 and not forloop.last %}
+        {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
           </div>
         {% endif %}
       {% endfor %}

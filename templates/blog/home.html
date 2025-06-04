@@ -71,15 +71,31 @@
       }
 
       .card {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.39);
         display: flex;
         flex-direction: column;
       }
 
       .card:hover{
-        box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.69);
+        box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.85);
       }
 
+      .card .product-name{
+        width:100%;
+        transition: transform 0.25s;
+        color: black
+      }
+
+      .card:hover .product-name{
+        transform: translate3d(0%, -97px, 0);
+        color:rgb(255, 255, 255);
+      }
+
+      .card:hover .product-image{
+        filter: brightness(40%);
+      }
+
+    
       body .carousel-control-prev-icon,
       body .carousel-control-next-icon{
       background-color: black;
@@ -116,8 +132,8 @@
       }
       
       a:hover {
-        color:rgb(71, 96, 122);
-        text-decoration: underline;
+        color:rgb(0, 0, 0);
+        text-decoration: none;
       }
      
       .partition {
@@ -226,10 +242,10 @@
           <p class="card-text" style="color:rgb(225, 225, 225); margin-top: 2rem; text-align: center; font-size: 40px">Sold out</p>
           </div>
           <div class="partition product-name">
-            <h5 class="card-title">{{i.product_name|truncatechars:22}}</h5>
+            <h5 class="card-title">{{i.product_name|truncatechars:20}}</h5>
           </div>
           <div class="partition product-description">
-            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:60}}</p>
+            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:57}}</p>
           </div>
           </a>
           <div class="partition product-price">
@@ -244,10 +260,10 @@
           </div>
           <div class="card-body">
           <div class="partition product-name">
-            <h5 class="card-title">{{i.product_name|truncatechars:22}}</h5>
+            <h5 class="card-title">{{i.product_name|truncatechars:20}}</h5>
           </div>
           <div class="partition product-description">
-            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:60}}</p>
+            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:57}}</p>
           </div>
           </a>
           <div class="partition product-price">

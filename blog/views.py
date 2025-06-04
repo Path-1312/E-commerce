@@ -36,21 +36,23 @@ def prod(request, myid):
 
 
 def category(request, category):  
-    allProds = []
-    scatprods = Product.objects.values('sub_category', 'id').filter(category=category)
-    cats = {item['sub_category'] for item in scatprods}
+    allProd = []
+    scatprod = Product.objects.values('sub_category', 'id').filter(category=category)
+    cats = {item['sub_category'] for item in scatprod}
 
     for cat in cats:
         prod = Product.objects.filter(sub_category=cat, category=category)
         n = len(prod)
-        nSlides = n // 4 + ceil((n / 4) - (n // 4))
-        allProds.append([prod, range(1, nSlides), nSlides])
+        nSlide = n // 4 + ceil((n / 4) - (n // 4))
+        allProd.append([prod, range(1, nSlide), nSlide])
 
     param = {
-        'allProds': allProds,
+        'allProd': allProd,
         'category': category
     }
-    return render(request, 'blog/category.html', param)
+    
+    context = {**param, ** params}
+    return render(request, 'blog/category.html', context)
 
 
 def sub_category(request, sub_category):
@@ -59,13 +61,15 @@ def sub_category(request, sub_category):
     n = len(products)
     nSlides = ceil(n / 4)
     
-    param = {
+    par = {
         'products': products,
         'sub_category': sub_category,
         'category': category,
         'nSlides': nSlides
     }
-    return render(request, 'blog/sub_category.html', param)
+    
+    con = {**params, **par}
+    return render(request, 'blog/sub_category.html', con)
 
 
 def tracker(request):

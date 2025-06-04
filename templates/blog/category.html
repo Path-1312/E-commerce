@@ -31,11 +31,11 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-              Sub Categories
+              Categories
             </a>
             <div class="dropdown-menu">
             {% for product, range, nSlides in allProds %}
-              <a class="dropdown-item" href="/sub category/{{product.0.sub_category}}">{{product.0.sub_category}}</a>
+              <a class="dropdown-item" href="/category/{{product.0.category}}">{{product.0.category}}</a>
             {% endfor %}
             </div>
           </li>
@@ -132,7 +132,7 @@
 <div class="container">
   <center><h3 class="my-4"><a href="/">Category</a> → {{ category }}</h3></center>
   <hr class="my-5" style="border:1px solid black">
-  {% for product, range, nSlides in allProds %}
+  {% for product, range, nSlides in allProd %}
   {% if product.0.category == category %}
   <h3 class="my-4"><a href="/sub category/{{product.0.sub_category}}">{{product.0.sub_category}}</a></h3>
   <div class="row">
@@ -229,6 +229,12 @@
 
   <link rel="icon" href="{% static 'blog/images.png' %}" type="image/png">
 </html>
+
+
+
+
+
+
 
 
 
