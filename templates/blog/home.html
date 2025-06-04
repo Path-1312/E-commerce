@@ -270,7 +270,7 @@
           <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>
           </div>
           <div class="partition add-to-cart">
-              <button id="pr{{i.id}}">Add To Cart</button>
+            <a href="{% url 'cart:add_to_cart' i.id %}"><button id="pr{{i.id}}">Add To Cart</button></a>
           <span class="badge badge-secondary">Stock: {{i.number_of_stock}}</span>
           </div>
           {% endif %}
