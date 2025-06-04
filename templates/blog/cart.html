@@ -2,6 +2,9 @@
 
 <html lang="en">
 
+    {% load static %}
+    {% load humanize %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,7 +53,7 @@
     <div class="product-item">
         <img src='/media/{{item.product.image}}' style="height: 250; width: 200">
         <p>{{ item.product.name }} ({{ item.quantity }})</p>
-        <p>Price: ₹{{ item.product.price }}</p>
+        <p>Price: ₹{{ item.product.price|intcomma }}</p>
         <a href="{% url 'cart:remove_from_cart' item.id %}">Remove</a>
     </div>
     {% empty %}
@@ -59,7 +62,7 @@
 
     </div>
 
-    <p>Total Price: ₹{{ total_price }}</p>
+    <p>Total Price: ₹{{ total_price|intcomma }}</p>
 
     <a href="/">Continue Shopping</a>
 
