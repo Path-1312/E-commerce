@@ -6,66 +6,147 @@
     {% load humanize %}
 
 <head>
+    <title>Cart</title>
+
+    <link rel="icon" href="{% static 'blog/images.png' %}" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <title>Document</title>
-    <style>
-        /* Add CSS styles for flex container and items */
-        .product-list {
-            display: flex;
-            flex-wrap: wrap; /* Allow items to wrap to the next row if necessary */
-            justify-content: space-between; /* Space items evenly along the main axis */
-            list-style: none; /* Remove list styles */
-            padding: 0;
-        }
 
-        .product-item {
-            
-            flex: 1; /* Grow to fill available space evenly */
-             /* Limit item width to avoid overcrowding */
-            margin: 10px; /* Add spacing between items */
-            border: 1px solid #ccc; /* Add a border for visual separation */
-            padding: 10px;
-            text-align: center;
-        }
-
-        .buy-now-button {
-            display: block;
-            margin-top: 10px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-    </style>
 </head>
 
-<body>
-
-    <h1>Your Shopping Cart</h1>
+<body style="background-color:rgb(173, 166, 180)">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgba(13, 0, 192, 0.37)">
+        <a class="navbar-brand" href="/"><img src="{% static 'blog/images.png' %}" height=20>Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contact us/">Contact Us</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                Categories
+              </a>
+              <div class="dropdown-menu">
+              {% for product, range, nSlides in allProds %}
+                <a class="dropdown-item" href="/category/{{product.0.category}}">{{product.0.category}}</a>
+              {% endfor %}
+              </div>
+            </li>
+              <li style="position: absolute; right: 20px">
+                <a class="nav-link" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Cart</a>
+              </li>
+              <a href="/cart/">
+                  <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="card card-body" style="width: 300px; margin-top: 35px; position: absolute; right: 30px">
+                        This is cart
+                    </div>
+                  </div>
+                </a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav><br><br>
 
     <div class="product-list">
 
-   
+
+
+
+    <style>
+    .product-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        list-style: nonne;
+        padding: 0;
+    }
+
+    .product-item {
+        flex: 1;
+        margin: 10px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .remove button {
+        background-color:rgba(100, 24, 24, 0.38);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.75em;
+      }
+  
+      .remove button:hover {
+        background-color:rgb(100, 24, 24);
+      }
+
+      a {
+        color:rgba(0, 0, 0, 0.69);
+        text-decoration: none;
+      }
+      
+      a:hover {
+        color:rgb(0, 0, 0);
+        text-decoration: none;
+      }
+
+    </style>
+
+
+
 
     {% for item in cart_items %}
     <div class="product-item">
+        <a href="/product/{{product.product_id}}">
         <img src='/media/{{item.product.image}}' style="height: 250; width: 200">
-        <p>{{ item.product.name }} ({{ item.quantity }})</p>
-        <p>Price: ₹{{ item.product.price|intcomma }}</p>
-        <a href="{% url 'cart:remove_from_cart' item.id %}">Remove</a>
+        <hr class="my-10" style="border:1px solid black">
+        <p style="color:rgba(0, 0, 0, 0.65); font-size: 1.5rem">Price: <b>₹{{item.product.price|intcomma}}</b></p>
+
+        <p style="color:rgba(0, 0, 0, 0.65); font-size: 1rem">{{ item.product.product_name }} - {{ item.quantity }}</p>
+        </a>
+        <div class="remove">
+            <a href="{% url 'cart:remove_from_cart' item.id %}"><button>Remove</button></a>
+        </div>
     </div>
     {% empty %}
-    <p>Your cart is empty.</p>
+
+    <b><p style="color:rgb(35, 34, 39); font-size: 2rem">Your cart is empty.</p></b>
+
     {% endfor %}
 
-    </div>
+    </div><br>
 
-    <p>Total Price: ₹{{ total_price|intcomma }}</p>
 
-    <a href="/">Continue Shopping</a>
+<div class="jumbotron" style="background: rgb(133, 127, 139)">
+    <center>
+        <p style="color:rgb(35, 34, 39); font-size: 1.5rem">Total Price: <b><u>₹{{ total_price|intcomma }}</u></b></p>
+    
+        <a href="/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Continue Shopping</a>
+    </center>
+</div>
 
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> 
 </body>
 
 </html>
