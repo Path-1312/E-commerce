@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Product, CartItem
 from math import ceil
 
@@ -8,8 +8,9 @@ def index():
     allProds = []
     catprods = Product.objects.values('category', 'id')
     cats = {item['category'] for item in catprods}
-    for cat in cats:
-        prod = Product.objects.filter(category=cat)
+    sorted_cats = sorted(cats)
+    for cat in sorted_cats:
+        prod = Product.objects.filter(category=cat).order_by('product_name')
         n = len(prod)
         nSlides = n // 4 + ceil((n / 4) - (n // 4))
         allProds.append([prod, range(1, nSlides), nSlides])
@@ -17,7 +18,15 @@ def index():
 params = index()
 
 def function(request):
-    return render(request, 'blog/home.html', params)
+    if request.user.is_authenticated:
+        cart_items = CartItem.objects.filter(user=request.user)
+        cart_quantities = {item.product.id: item.quantity for item in cart_items}
+    else:
+        cart = request.session.get('view_cart', {})
+        cart_quantities = {int(k): int(v) for k, v in cart.items()}
+    param = {'cart_quantities': cart_quantities,}
+    context = {**params, **param}
+    return render(request, 'blog/home.html', context)
 
 def about(request):
     return render(request, 'blog/about.html', params)
@@ -85,21 +94,38 @@ def checkout(request):
 def view_cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
     total_price = sum(item.product.price * item.quantity for item in cart_items)
-    p = {'cart_items': cart_items, 'total_price': total_price}
+    cart_quantities = {item.product.id: item.quantity for item in cart_items}
+    p = {'cart_items': cart_items, 'total_price': total_price, 'cart_quantities': cart_quantities}
     c = {**p, **params}
     return render(request, 'blog/cart.html', c)
 
 def add_to_cart(request, item_id):
-    product = Product.objects.get(id=item_id)
-    cart_item, created = CartItem.objects.get_or_create(product=product, user=request.user)
-    cart_item.quantity += 1
-    cart_item.save()
-    return redirect('cart:view_cart')
+    cart_item, created = CartItem.objects.get_or_create(
+        user=request.user,
+        product_id=item_id,
+        defaults={'quantity': 1}
+    )
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+    referer = request.META.get('HTTP_REFERER', '/')
+    return HttpResponseRedirect(referer)
+
 
 def remove_from_cart(request, item_id):
-    cart_item = CartItem.objects.get(id=item_id)
-    cart_item.delete()
-    return redirect('cart:view_cart')
+    try:
+        cart_item = CartItem.objects.get(user=request.user, product_id=item_id)
+    except CartItem.DoesNotExist:
+        return redirect('cart:view_cart')
+
+    if cart_item.quantity == 1:
+        cart_item.delete()
+    else:
+        cart_item.quantity -= 1
+        cart_item.save()
+    referer = request.META.get('HTTP_REFERER', '/')
+    return HttpResponseRedirect(referer)
+
 
 
 
