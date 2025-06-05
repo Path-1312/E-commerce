@@ -82,29 +82,73 @@
         text-align: center;
     }
 
-    .remove button {
-        background-color:rgba(100, 24, 24, 0.38);
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.75em;
-      }
-  
-      .remove button:hover {
-        background-color:rgb(100, 24, 24);
-      }
+    a {
+      color:rgba(0, 0, 0, 0.69);
+      text-decoration: none;
+    }
+    
+    a:hover {
+      color:rgb(0, 0, 0);
+      text-decoration: none;
+    }
 
-      a {
-        color:rgba(0, 0, 0, 0.69);
-        text-decoration: none;
-      }
-      
-      a:hover {
-        color:rgb(0, 0, 0);
-        text-decoration: none;
-      }
+    #plus {
+      background-color:rgb(56, 81, 165);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75em;
+      margin-right: 2rem
+    }
+
+    #plus:hover {
+      background-color:rgb(33, 48, 97);
+    }
+
+    #minus {
+      background-color:rgb(165, 56, 56);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75em;
+    }
+
+    #minus:hover {
+      background-color:rgb(97, 33, 33);
+    }
+
+    #trash {
+      background-color:rgb(165, 56, 56);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75em;
+    }
+
+    #trash:hover {
+      background-color:rgb(97, 33, 33);
+    }
+
+    #remove{
+      background-color:rgba(41, 35, 35, 0.42);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75em;
+    }
+
+    #remove:hover{
+      background-color: rgb(41, 35, 35);
+    }
+
 
     </style>
 
@@ -113,16 +157,47 @@
 
     {% for item in cart_items %}
     <div class="product-item">
-        <a href="/product/{{product.product_id}}">
+        <a href="/product/{{item.product.id}}">
         <img src='/media/{{item.product.image}}' style="height: 250; width: 200">
         <hr class="my-10" style="border:1px solid black">
         <p style="color:rgba(0, 0, 0, 0.65); font-size: 1.5rem">Price: <b>₹{{item.product.price|intcomma}}</b></p>
 
-        <p style="color:rgba(0, 0, 0, 0.65); font-size: 1rem">{{ item.product.product_name }} - {{ item.quantity }}</p>
+        <p style="color:rgba(0, 0, 0, 0.65); font-size: 1rem"><b>{{ item.product.product_name }}</b></p>
         </a>
-        <div class="remove">
-            <a href="{% url 'cart:remove_from_cart' item.id %}"><button>Remove</button></a>
-        </div>
+        {% if item.quantity == 1 %}
+        <form action="{% url 'cart:remove_from_cart' item.product.id %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" id="trash">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+            </svg>
+          </button>
+        </form>
+        {% else %}
+        <form action="{% url 'cart:remove_from_cart' item.product.id %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" id="minus">−</button>
+        </form>
+        {% endif %}
+        <b>{{ item.quantity }}</b>
+        <span>{{ cart_quantity }}</span>
+        {% if item.quantity < 6 %}
+        <form action="{% url 'cart:add_to_cart' item.product.id %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" id="plus">+</button>
+        </form>
+        {% else %}(max)
+        {% endif %}
+        <form action="{% url 'cart:delete_from_cart' item.product.id %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" id="remove">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+            </svg>
+          </button>
+        </form> 
     </div>
     {% empty %}
 
@@ -137,7 +212,7 @@
     <center>
         <p style="color:rgb(35, 34, 39); font-size: 1.5rem">Total Price: <b><u>₹{{ total_price|intcomma }}</u></b></p>
     
-        <a href="/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Continue Shopping</a>
+        <button class="btn btn-secondary btn-lg active" onclick="history.back()">Continue Shopping</button>
     </center>
 </div>
 

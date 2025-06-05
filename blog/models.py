@@ -3,6 +3,7 @@ import datetime
 from django.core.validators import MinValueValidator
 import os
 from django.contrib.auth.models import User
+
 category_choices = (
     ('Fashion', 'Fashion'),
     ('Accessories', 'Accessories'),
