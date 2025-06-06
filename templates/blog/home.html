@@ -279,15 +279,19 @@
       {% for i in product %}
       <div class="col-xs-3 col-sm-3 col-md-3">
         <div class="card" style="height: 31rem; width: 15rem; background-color: rgb(173, 166, 180);">
+          
+          {% if not i.adjusted_stock %}
           <a href="/product/{{i.id}}">
-          {% if not i.number_of_stock %}
           <div class="partition product-image">
-          <img src='/media/{{i.image}}' class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle; filter: brightness(30%)">
+            <div style="position: relative; display: inline-block;">
+              <img src='/media/{{i.image}}' class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle; filter: brightness(30%)">
+              <div style="position: absolute; top: 20px; left: 20px; color: white; font-size: 24px; font-weight: bold;">
+                Sold Out
+              </div>
+            </div>
           </div>
+
           <div class="card-body">
-          <div class="card-img-overlay">
-          <p class="card-text" style="color:rgb(225, 225, 225); margin-top: 2rem; text-align: center; font-size: 40px">Sold out</p>
-          </div>
           <div class="partition product-name">
             <h5 class="card-title">{{i.product_name|truncatechars:20}}</h5>
           </div>
@@ -299,9 +303,35 @@
           <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>
           </div>
           <div class="partiton add-to-cart">
+
+
+                {% with cart_quantity=cart_quantities|get_item:i.id %}
+                  {% if cart_quantity > 0 %}
+                    {% if cart_quantity == 1 %}
+                    <form action="{% url 'cart:remove_from_cart' i.id %}" method="post" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" id="trash">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                        </svg>
+                      </button>
+                    </form>
+                    {% else %}
+                    <form action="{% url 'cart:remove_from_cart' i.id %}" method="post" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" id="minus">−</button>
+                    </form>
+                    {% endif %}
+                    <span>{{ cart_quantity }}</span>
+                    {% endif %}
+                  {% endwith %}
+                  
+
           <span class="badge badge-secondary">Arriving Soon</span>
           </div>
           {% else %}
+          <a href="/product/{{i.id}}">
           <div class="partition product-image">
           <img src='/media/{{i.image}}' class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle">
           </div>
@@ -354,8 +384,7 @@
               {% endif %}
             {% endwith %}
             
-           <span class="badge badge-secondary">Stock: {{i.number_of_stock}}</span>
-          </div>
+            <span class="badge badge-secondary">Stock: {{ i.adjusted_stock }}</span>         </div>
           {% endif %}
           </div>
         </div>
