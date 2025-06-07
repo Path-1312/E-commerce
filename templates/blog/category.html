@@ -86,7 +86,7 @@
         width: 300px;
         height: 200px;
         perspective: 1000px;
-        overflow: hidden;
+        overflow: visible;
       }
       
       .card .product-image {
@@ -103,7 +103,7 @@
       
       .card:hover .product-image {
         filter: brightness(80%);
-        transform: scale(1.1) translateZ(80px); /* zoom and move toward viewer */
+        transform: scale(1.1) translateZ(100px);
         box-shadow: 0 30px 40px rgba(0, 0, 0, 0.4);
       }
 
