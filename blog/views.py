@@ -69,14 +69,16 @@ def category(request, category):
     allProd = []
     scatprod = Product.objects.values('sub_category', 'id').filter(category=category)
     cats = {item['sub_category'] for item in scatprod}
+    sorted_cats = sorted(cats)
 
-    for cat in cats:
-        prod = Product.objects.filter(sub_category=cat, category=category)
+    for cat in sorted_cats:
+        prod = Product.objects.filter(sub_category=cat, category=category).order_by('product_name')
         n = len(prod)
         nSlide = n // 4 + ceil((n / 4) - (n // 4))
         allProd.append([prod, range(1, nSlide), nSlide])
-        
-    cart_quantities = get_cart_quantities(request)
+        cart_quantities = get_cart_quantities(request)
+        for product in prod:
+            product.adjusted_stock = max(product.number_of_stock - cart_quantities.get(product.id, 0), 0)
     params = index(cart_quantities)
     param = {
         'allProd': allProd, 'category': category, 'cart_quantities': cart_quantities
@@ -125,8 +127,12 @@ def view_cart(request):
     cart_quantities = {item.product.id: item.quantity for item in cart_items}
     cart_quantity = get_cart_quantities(request)
     params = index(cart_quantity)
+    for item in cart_items:
+        item.product.adjusted_stock = max(item.product.number_of_stock - cart_quantities.get(item.product.id, 0), 0)
+        
     p = {'cart_items': cart_items, 'total_price': total_price, 'cart_quantities': cart_quantities}
     c = {**p, **params}
+    c.update(params)
     return render(request, 'blog/cart.html', c)
 
 def add_to_cart(request, item_id):

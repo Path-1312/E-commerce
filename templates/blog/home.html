@@ -74,8 +74,7 @@
 
       .card {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.39);
-        display: flex;
-        flex-direction: column;
+        perspective: 1000px;
       }
 
       .card:hover{
@@ -84,7 +83,7 @@
 
       .card .product-name{
         width:100%;
-        transition: transform 0.25s;
+        transition: transform 0.5s;
         color: black
       }
 
@@ -93,10 +92,32 @@
         color:rgb(255, 255, 255);
       }
 
-      .card:hover .product-image{
-        filter: brightness(40%);
+      .card {
+        width: 300px;
+        height: 200px;
+        perspective: 1000px;
+        overflow: hidden;
       }
-
+      
+      .card .product-image {
+        width: 100%;
+        height: 100%;
+        filter: brightness(100%);
+        transform: scale(1) translateZ(0);
+        transform-style: preserve-3d;
+      
+        transition: 
+          filter 0.5s ease, 
+          transform 0.4s ease;
+      }
+      
+      .card:hover .product-image {
+        filter: brightness(80%);
+        transform: scale(1.1) translateZ(80px);
+        box-shadow: 0 30px 40px rgba(0, 0, 0, 0.4);
+      }
+      
+      
     
       body .carousel-control-prev-icon,
       body .carousel-control-next-icon{
@@ -332,6 +353,10 @@
                       <span class="badge badge-secondary">Sold Out</span>
                     </form>
                     {% endif %}
+                    {% endif %}
+
+                    {% if cart_quantity == 0 %}
+                    <span class="badge badge-secondary">Sold Out</span>
                     {% endif %}
                   {% endwith %}
                   

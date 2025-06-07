@@ -62,9 +62,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>  
 
     <style>
-      .col-md-3
+      .col-md-2
       {
-      display: inline-block;
+
       margin-left: 20px;
       }
 
@@ -77,10 +77,16 @@
         box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.69)
       }
 
-      .col-md-3 img{
+      .card img{
 
-      width: 170px;
+      width: auto;
+      max-width: calc(100% - 20px);
       height: 200px;
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-top: 10px;
+      margin-bottom: 0;
+
       }
 
       a {
@@ -99,19 +105,19 @@
 
     </style>
   <body>
-    <div class="container">
+    <div class="container" style="max-width: 90%;">
       <center><h3 class="my-4"><a href="/">Category</a> → <a href="/category/{{category}}">{{ category}}</a> → {{ sub_category }}</h3></center>
     <hr class="my-5" style="border:1px solid black">
       {% for i in products %}
-        {% if forloop.counter|add:"-1"|divisibleby:3 %}
-          <div class="row mb-4 justify-content-center">
+        {% if forloop.counter|add:"-1"|divisibleby:5 %}
+          <div class="row mb-5 justify-content-center">
         {% endif %}
     
-        <div class="col-xs-3 col-sm-3 col-md-3">
-          <div class="card" style="background-color: rgb(173, 166, 180); height: 31rem">
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <div class="card" style="background-color: rgb(173, 166, 180); height: 31rem; width: 15rem">
             <a href="/product/{{i.id}}">
               {% if not i.number_of_stock %}
-              <img src="/media/{{i.image}}" class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle; filter: brightness(30%)">
+              <img src="/media/{{i.image}}" class="d-block w-100" style="filter: brightness(30%)">
               <div class="card-img-overlay">
                 <p class="card-text" style="color:rgb(225, 225, 225); margin-top: 2rem; text-align: center; font-size: 40px">Sold Out</p>
               </div>
@@ -136,13 +142,13 @@
               <p class="card-text" style="color:rgba(0, 0, 0, 0.65)">Price: <b>₹{{i.price|intcomma}}</b></p>
               <hr>
                 <button id="pr{{i.id}}" class="btn btn-secondary cart">Add To Cart</button>
-                <span class="badge badge-secondary">Stock: {{i.number_of_stock}}</span>
+                <span class="badge badge-secondary">Stock: {{i.adjusted_stock}}</span>
               </div>
             </div>
           </div>
               {% endif %}
     
-        {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+        {% if forloop.counter|divisibleby:5 and forloop.counter > 0 and not forloop.last %}
           </div>
         {% endif %}
       {% endfor %}
