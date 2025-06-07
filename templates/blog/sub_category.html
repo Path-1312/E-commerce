@@ -238,10 +238,9 @@
           <div class="card" style="background-color: rgb(173, 166, 180); height: 31rem; width: 15rem">
             <a href="/product/{{i.id}}">
               {% if not i.number_of_stock %}
-              <img src="/media/{{i.image}}" class="d-block w-100" style="filter: brightness(30%)">
-              <div class="card-img-overlay">
-                <p class="card-text" style="color:rgb(225, 225, 225); margin-top: 2rem; text-align: center; font-size: 40px">Sold Out</p>
-              </div>
+              <div class="card-img">
+                <img src='/media/{{i.image}}' class="d-block w-100" style="display: block; margin: 0 auto; vertical-align: middle; filter: brightness(30%)">
+            </div>
               <div class="card-body">
                 <h5 class="card-title">{{i.product_name|truncatechars:22}}</h5>
                 <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:60}}</p>
