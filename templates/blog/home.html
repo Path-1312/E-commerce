@@ -96,7 +96,7 @@
         width: 300px;
         height: 200px;
         perspective: 1000px;
-        overflow: hidden;
+        overflow: visible;
       }
       
       .card .product-image {
@@ -113,7 +113,7 @@
       
       .card:hover .product-image {
         filter: brightness(80%);
-        transform: scale(1.1) translateZ(80px);
+        transform: scale(1.1) translateZ(100px);
         box-shadow: 0 30px 40px rgba(0, 0, 0, 0.4);
       }
       
@@ -182,7 +182,6 @@
         flex: 0 0 30%;
         font-size: 0.85rem;
         color: #555;
-        overflow-y: auto;
       }
   
       .product-price {
