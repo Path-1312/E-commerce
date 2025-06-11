@@ -44,10 +44,18 @@
               <a class="nav-link" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Cart</a>
             </li>
             <a href="/cart/">
-              <li style="position: absolute; right: 20px">
+              <li>
                 <a class="nav-link" href="/cart/">Cart</a>
               </li>
             </a>
+            <li class="nav-item">
+            {% if user.is_authenticated %}
+            {% comment %} <a class="nav-link" href="{% url 'profile' %}">Profile</a> {% endcomment %}
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            {% endif %}
+            </li>
               </div>
             </div>
           </li>
