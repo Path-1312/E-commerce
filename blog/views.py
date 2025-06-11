@@ -211,6 +211,21 @@ def edit_profile(request):
     return render(request, 'blog/edit_profile.html', {'user': request.user})
 
 
+def ckeckout(request, item_id):
+    if not request.user.is_authenticated:
+        messages.warning(request, "You need to log in to buy items.")
+        return redirect('/login/')
+    
+    cart_item, created = CartItem.objects.get_or_create(
+        user=request.user,
+        product_id=item_id,
+        defaults={'quantity': 1}
+    )
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+    
+    return redirect('/checkout/')
 
 
 
