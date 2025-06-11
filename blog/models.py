@@ -5,40 +5,34 @@ import os
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from .constants import categories
 
-category_choices = (
-    ('Fashion', 'Fashion'),
-    ('Accessories', 'Accessories'),
-    ('Electronics', 'Electronics'),
-    ('Home', 'Home'),
-    ('Kitchen', 'Kitchenware'),
-    ('Grocery', 'Grocery'),
-    ('Beauty', 'Beauty'),
-    ('Toys', 'Toys'),
-    ('Sports', 'Sports'),
-    ('Stationery', 'Stationery'),
-    ('Automotive', 'Automotive'),
-    ('Pet', 'Pet'),
-    ('Other', "Other")
-)
 
 class Product(models.Model):
     product_name = models.CharField(max_length=100, default='')
-    category = models.CharField(max_length=20, choices = category_choices,default='Other')
-    sub_category = models.CharField(max_length=50, default='')
+    category = models.CharField(
+        max_length=30,
+        choices=[(key, key) for key in categories.keys()],
+        default='Other'
+    )
+    sub_category = models.CharField(max_length=50, default='', blank=True)
     price = models.IntegerField(validators=[MinValueValidator(0)])
     number_of_stock = models.IntegerField(validators=[MinValueValidator(0)])
     description = models.CharField(max_length=400, default='')
     published_date = models.DateField(default=datetime.date.today)
-    image = models.FileField(upload_to='blog/images/', default='', help_text='Recommended image size: 230×200 pixels')
-    
+    image = models.FileField(
+        upload_to='blog/images/',
+        default='',
+        help_text='Recommended image size: 230×200 pixels'
+    )
+
     def __str__(self):
         return self.product_name
-    
+
     def delete(self, *args, **kwargs):
         if self.image and os.path.isfile(self.image.path):
             os.remove(self.image.path)
-        super().delete(*args, **kwargs)     
+        super().delete(*args, **kwargs)   
 
 
 class CartItem(models.Model):
