@@ -186,7 +186,14 @@ def signup_view(request):
     return render(request, "registration/signup.html", {"form": form})
 
 
-
+def profile(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "You need to log in to view your profile.")
+        return redirect('/login/')
+    
+    cart_quantities = get_cart_quantities(request)
+    params = index(cart_quantities)
+    return render(request, 'blog/profile.html', params)
 
 
 
