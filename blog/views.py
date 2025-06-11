@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Product, CartItem
 from math import ceil
+from django.contrib.auth import login
+from .forms import SignUpForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 def index(cart_quantities):
@@ -111,6 +115,9 @@ def sub_category(request, sub_category):
 
 
 def view_cart(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "You need to log in to view items to the cart.")
+        return redirect('/login/')
     cart_items = CartItem.objects.filter(user=request.user)
     total_price = sum(item.product.price * item.quantity for item in cart_items)
     cart_quantities = {item.product.id: item.quantity for item in cart_items}
@@ -124,7 +131,12 @@ def view_cart(request):
     c.update(params)
     return render(request, 'blog/cart.html', c)
 
+
 def add_to_cart(request, item_id):
+    if not request.user.is_authenticated:
+        messages.warning(request, "You need to log in to add items to the cart.")
+        return redirect('/login/')
+    
     cart_item, created = CartItem.objects.get_or_create(
         user=request.user,
         product_id=item_id,
@@ -138,6 +150,10 @@ def add_to_cart(request, item_id):
 
 
 def remove_from_cart(request, item_id):
+    if not request.user.is_authenticated:
+        messages.warning(request, "You need to log in to remove items to the cart.")
+        return redirect('/login/')
+    
     cart_item = CartItem.objects.get(user=request.user, product_id=item_id)
     if cart_item.quantity == 1:
         cart_item.delete()
@@ -147,11 +163,28 @@ def remove_from_cart(request, item_id):
     referer = request.META.get('HTTP_REFERER', '/')
     return HttpResponseRedirect(referer)
 
+
 def delete_from_cart(request, item_id):
+    if not request.user.is_authenticated:
+        messages.warning(request, "You need to log in to delete items to the cart.")
+        return redirect('/login/')
+    
     cart_item = CartItem.objects.get(user=request.user, product_id=item_id)
     cart_item.delete()
     referer = request.META.get('HTTP_REFERER', '/')
     return HttpResponseRedirect(referer)
+
+def signup_view(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('cart:bloghome')
+    else:
+        form = SignUpForm()
+    return render(request, "registration/signup.html", {"form": form})
+
 
 
 
