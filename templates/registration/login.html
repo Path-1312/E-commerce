@@ -1,9 +1,11 @@
 {% extends 'registration/base.html' %}
-{% block content %}
+{% block body %}
+        
+<center>
     {% if messages %}
         <ul>
             {% for message in messages %}
-                <li class="alert-{{ message.tags }}">{{ message }}</li>
+                <a class="alert-{{ message.tags }}">{{ message }}</a>
             {% endfor %}
         </ul>
     {% endif %}
@@ -11,6 +13,7 @@
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Login</button>
-</form>
+</form><br>
 <p>Don't have an account? <a href="{% url 'cart:signup' %}">Sign up</a></p>
+</center>
 {% endblock %}
