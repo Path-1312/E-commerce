@@ -95,6 +95,8 @@ def sub_category(request, sub_category):
     nSlides = ceil(n / 4)
     
     cart_quantities = get_cart_quantities(request)
+    for product in products:
+        product.adjusted_stock = max(product.number_of_stock - cart_quantities.get(product.id, 0), 0)
     params = index(cart_quantities)
     par = {
         'products': products,
@@ -106,19 +108,6 @@ def sub_category(request, sub_category):
     
     con = {**params, **par}
     return render(request, 'blog/sub_category.html', con)
-
-
-def tracker(request):
-    return HttpResponse("Tracker")
-
-
-def search(request):
-    return HttpResponse("Search")
-
-
-def checkout(request):
-    return HttpResponse("Checkout")
-
 
 
 def view_cart(request):
@@ -174,39 +163,17 @@ def delete_from_cart(request, item_id):
 
 
 
+def tracker(request):
+    return HttpResponse("Tracker")
+
+
+def search(request):
+    return HttpResponse("Search")
+
+
+def checkout(request):
+    return HttpResponse("Checkout")
 
 
 
 
-
-
-
-
-
-
-
-
-# def category(request, category):  
-#     allProd = []
-#     scatprod = Product.objects.values('sub_category', 'id').filter(category=category)
-#     cats = {item['sub_category'] for item in scatprod}
-
-#     cart_quantities = get_cart_quantities(request)
-
-#     for cat in cats:
-#         prod = Product.objects.filter(sub_category=cat, category=category)
-        
-#         # Add adjusted_stock here too:
-#         for product in prod:
-#             product.adjusted_stock = max(product.number_of_stock - cart_quantities.get(product.id, 0), 0)
-        
-#         n = len(prod)
-#         nSlide = n // 4 + ceil((n / 4) - (n // 4))
-#         allProd.append([prod, range(1, nSlide), nSlide])
-        
-#     param = {
-#         'allProd': allProd, 'category': category, 'cart_quantities': cart_quantities
-#         }
-    
-#     context = {**param, **params}
-#     return render(request, 'blog/category.html', context)
