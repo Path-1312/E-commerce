@@ -15,11 +15,9 @@ class SignUpForm(UserCreationForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['product_name', 'category', 'sub_category', 'price', 'number_of_stock', 'description', 'image']
+        fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['sub_category'].widget = forms.Select(choices=[])
-        self.fields['sub_category'].required = False
+    class Media:
+        js = ('admin/js/subcategory.js',)
         
         
