@@ -120,13 +120,14 @@ def view_cart(request):
         return redirect('/login/')
     cart_items = CartItem.objects.filter(user=request.user)
     total_price = sum(item.product.price * item.quantity for item in cart_items)
+    total_quantity = sum(item.quantity for item in cart_items)
     cart_quantities = {item.product.id: item.quantity for item in cart_items}
     cart_quantity = get_cart_quantities(request)
     params = index(cart_quantity)
     for item in cart_items:
         item.product.adjusted_stock = max(item.product.number_of_stock - cart_quantities.get(item.product.id, 0), 0)
         
-    p = {'cart_items': cart_items, 'total_price': total_price, 'cart_quantities': cart_quantities}
+    p = {'cart_items': cart_items, 'total_price': total_price, 'cart_quantities': cart_quantities, 'total_quantity': total_quantity}
     c = {**p, **params}
     c.update(params)
     return render(request, 'blog/cart.html', c)

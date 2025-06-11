@@ -228,7 +228,10 @@
 <div class="jumbotron" style="background: rgb(133, 127, 139)">
     <center>
         <p style="color:rgb(35, 34, 39); font-size: 1.5rem">Total Price: <b><u>₹{{ total_price|intcomma }}</u></b></p>
-    
+        <p style="color:rgb(35, 34, 39); font-size: 1.5rem">Total Items: <b><u>{{ total_quantity }}</u></b></p>
+            {% if total_quantity %}
+            <button type="submit" class="btn btn-primary btn-lg active" style="background-color: rgb(33, 48, 97)">Buy Now</button>
+            {% endif %}
         <button class="btn btn-secondary btn-lg active" onclick="history.back()">Continue Shopping</button>
     </center>
 </div>
