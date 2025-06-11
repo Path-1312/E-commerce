@@ -1,27 +1,21 @@
 {% extends "blog/basic.html" %}
 
-{% block title %}About{% endblock %}
+{% block title %}Profile{% endblock %}
 
 {% block body %}
-{% load static %}
-<div class="jumbotron jumbotron-fluid" style="width: 800px; margin:0 auto; ">
+<div class="jumbotron jumbotron-fluid" style="width: 800px; margin:0 auto;">
     <div class="container">
-          <center><h1 class="mt-0">Profile</h1></center>
-          <div align="center">
-          </div>
-    <hr>
-            <center>
-                    <p class="lead">Hello{{ user.username }}</p>
-            </center>
-        </div>
-      </div>
-    
-
-
-
-
-
+        <center><h1 class="mt-0">Profile</h1></center>
+        <hr>
+        <p class="lead">👋 Hello, {{ user.get_full_name }}</p>
+        <p><strong>Full Name:</strong> {{ user.get_full_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone Number:</strong> {{ user.profile.phone_number|default:"Not provided" }}</p>
+        <hr>
+        <a href="{% url 'cart:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+        <a href="{% url 'cart:change_password' %}" class="btn btn-warning">Change Password</a>
+    </div>
+</div>
 {% endblock %}
-
 
 

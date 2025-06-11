@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Product, CartItem
+from .models import Product, CartItem, Profile
 from math import ceil
 from django.contrib.auth import login
 from .forms import SignUpForm
@@ -193,11 +193,21 @@ def profile(request):
     
     cart_quantities = get_cart_quantities(request)
     params = index(cart_quantities)
-    return render(request, 'blog/profile.html', params)
+    return render(request, 'blog/profile.html', {'user': request.user, 'cart_quantities': cart_quantities, **params})
 
-
-
-
+def edit_profile(request):
+    user = request.user
+    profile, created = Profile.objects.get_or_create(user=user)
+    if request.method == 'POST':
+        user = request.user
+        user.first_name = request.POST.get('full_name', user.first_name)
+        user.username = request.POST.get('username', user.username)
+        user.email = request.POST.get('email', user.email)
+        user.profile.phone_number = request.POST.get('phone_number', user.profile.phone_number)
+        user.save()
+        messages.success(request, 'Your profile has been updated successfully!')
+        return redirect('cart:profile')
+    return render(request, 'blog/edit_profile.html', {'user': request.user})
 
 
 
