@@ -21,8 +21,12 @@ class ProductAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        form.base_fields['sub_category'].widget = forms.Select()
-        form.base_fields['sub_category'].choices = [('', 'Select a sub-category')]
+        subcat_field = form.base_fields['sub_category']
+        subcat_field.widget = forms.Select()
+        subcat_field.choices = [('', 'Select a sub-category')]
+
+        if obj:
+            subcat_field.widget.attrs['data-selected'] = obj.sub_category
         return form
 
     def changelist_view(self, request, extra_context=None):

@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const categoryField = document.querySelector('#id_category');
     const subCategoryField = document.querySelector('#id_sub_category');
 
+    if (!categoryField || !subCategoryField) return;
+
     const categories = {
         "Electronics": [
             "Mobiles & Accessories",
@@ -113,18 +115,27 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateSubcategories() {
         const selectedCategory = categoryField.value;
         const subcategories = categories[selectedCategory] || [];
+        const savedSubcategory = subCategoryField.getAttribute('data-selected'); // Get the saved subcategory
 
-        subCategoryField.innerHTML = '<option value="">Select a sub-category</option>';
+        // Clear existing options
+        subCategoryField.innerHTML = '<option value="">---------</option>';
+
         subcategories.forEach(function (subcat) {
             const option = document.createElement('option');
             option.value = subcat;
             option.text = subcat;
+
+            // Pre-select the saved subcategory
+            if (subcat === savedSubcategory) {
+                option.selected = true;
+            }
+
             subCategoryField.appendChild(option);
         });
     }
 
     categoryField.addEventListener('change', updateSubcategories);
 
-    // Trigger once on load to pre-fill
+    // Initialize on page load
     updateSubcategories();
 });

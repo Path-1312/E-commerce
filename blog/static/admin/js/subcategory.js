@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateSubcategories() {
         const selectedCategory = categoryField.value;
         const subcategories = categories[selectedCategory] || [];
+        const savedSubcategory = subCategoryField.getAttribute('data-selected'); // Get the saved subcategory
 
         // Clear existing options
         subCategoryField.innerHTML = '<option value="">---------</option>';
@@ -123,6 +124,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const option = document.createElement('option');
             option.value = subcat;
             option.text = subcat;
+
+            // Pre-select the saved subcategory
+            if (subcat === savedSubcategory) {
+                option.selected = true;
+            }
+
             subCategoryField.appendChild(option);
         });
     }
