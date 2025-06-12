@@ -408,7 +408,7 @@
                 </form>
                 {% endif %}
                 <span>{{ cart_quantity }}</span>
-                  {% if cart_quantity < 6 %}
+                  {% if cart_quantity < i.max_order_quantity %}
                   <form action="{% url 'cart:add_to_cart' i.id %}" method="post" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" id="plus">+</button>
