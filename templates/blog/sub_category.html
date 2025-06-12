@@ -40,6 +40,10 @@
             {% endfor %}
             </div>
           </li>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 1194px; margin-left: 20px; margin-right: 10px;">
+            <button id="search" type="submit">Search</button>
+          </form>
           <a href="/cart/">
             <li>
               <a class="nav-link" href="/cart/">Cart</a>
@@ -69,6 +73,15 @@
 
     <style>
 
+      #search {
+        background-color: rgb(56, 81, 165);
+        color: white;
+        height: 38px;
+        width: 80px;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+      }
+      
       #logout {
         color:rgba(0, 0, 0, 0.5);
       }
