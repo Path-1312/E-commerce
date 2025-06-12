@@ -100,6 +100,53 @@
         text-align: center;
     }
 
+    .product-item img {
+        width: 200px;
+        height: 250px;
+    }
+
+
+    .product-item {
+      border: 1px solid #ddd;
+      padding: 16px;
+      margin: 16px;
+      width: 250px;
+      display: inline-block;
+      vertical-align: top;
+      text-align: center;
+      background-color:rgb(133, 133, 141);
+      border-radius: 8px;
+    }
+    
+    
+    .divider {
+      margin: 10px 0;
+      border: 1px solid #000;
+    }
+    
+    .product-price p,
+    .product-name p {
+      color: rgba(0, 0, 0, 0.65);
+      margin: 8px 0;
+    }
+    
+    .product-price p {
+      font-size: 1.5rem;
+    }
+    
+    .product-name p {
+      font-size: 1rem;
+      color: rgba(0, 0, 0, 0.65);
+      height: 2.5rem;
+      line-height: 1.25rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    
     a {
       color:rgba(0, 0, 0, 0.69);
       text-decoration: none;
@@ -175,12 +222,17 @@
 
     {% for item in cart_items %}
     <div class="product-item">
-        <a href="/product/{{item.product.id}}">
-        <img src='/media/{{item.product.image}}' style="height: 250; width: 200">
-        <hr class="my-10" style="border:1px solid black">
+      <a href="/product/{{item.product.id}}">
+        <div class="product-image">
+        <img src='/media/{{item.product.image}}'>
+        </div>
+        <hr class="divider">
+        <div class="product-price">
         <p style="color:rgba(0, 0, 0, 0.65); font-size: 1.5rem">Price: <b>₹{{item.product.price|intcomma}}</b></p>
-
+        </div>
+        <div class="product-name">
         <p style="color:rgba(0, 0, 0, 0.65); font-size: 1rem"><b>{{ item.product.product_name }}</b></p>
+        </div>
         </a>
         {% if item.quantity == 1 %}
         <form action="{% url 'cart:remove_from_cart' item.product.id %}" method="post" style="display:inline;">

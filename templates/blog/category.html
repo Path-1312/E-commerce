@@ -162,10 +162,26 @@
        padding-right: 0;
        }
 
-      .carousel-indicators li {
-        background-color:rgb(255, 255, 255);
+       .carousel {
+        position: relative;
       }
-    
+      
+      .carousel-indicators {
+        position: absolute;
+        bottom: -30px; 
+        left: 0;
+        right: 0;
+        margin: auto;
+        justify-content: center;
+      }
+      
+      .carousel-indicators li {
+        background-color: rgb(255, 255, 255);
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      
       .carousel-indicators .active {
         background-color: #000000;
       }
@@ -338,10 +354,10 @@
 
           <div class="card-body">
           <div class="partition product-name">
-            <h5 class="card-title">{{i.product_name|truncatechars:20}}</h5>
+            <h5 class="card-title">{{i.product_name}}</h5>
           </div>
           <div class="partition product-description">
-            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:57}}</p>
+            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description}}</p>
           </div>
           </a>
           <div class="partition product-price">
@@ -388,10 +404,10 @@
           </div>
           <div class="card-body">
           <div class="partition product-name">
-            <h5 class="card-title">{{i.product_name|truncatechars:20}}</h5>
+            <h5 class="card-title">{{i.product_name}}</h5>
           </div>
           <div class="partition product-description">
-            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description|truncatechars:57}}</p>
+            <p class="card-text" style="color:rgba(6, 6, 56, 0.65)">{{i.description}}</p>
           </div>
           </a>
           <div class="partition product-price">
