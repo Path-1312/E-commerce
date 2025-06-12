@@ -129,10 +129,49 @@
         box-shadow: 0 30px 40px rgba(0, 0, 0, 0.4);
       }
 
+      .partition {
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        box-sizing: border-box;
+      }
+
       .card .product-name{
         width:100%;
         transition: transform 0.5s;
-        color: black
+        color: black;
+        font-size: 1rem;
+        font-weight: bold;
+        text-align: center;
+        height: 3.75rem;
+        line-height: 1.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+ 
+      .card .product-description{
+        width:100%;
+        color: white;
+        font-size: 0.85rem;
+        text-align: center;
+        height: 5.5rem;
+        line-height: 1.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .product-price {
+        font-size: 1rem;
+        text-align: center;
+        color: green;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
       }
 
       .card:hover .product-name{
@@ -196,40 +235,6 @@
         text-decoration: none;
       }
       
-      .partition {
-        padding: 0.5rem 1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-        box-sizing: border-box;
-      }
-  
-      .product-image{
-        flex: 0 0 50%;
-      }
-
-      .product-name {
-        flex: 0 0 10%;
-        font-size: 1rem;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        justify-content: center
-      }
-  
-      .product-description {
-        flex: 0 0 30%;
-        font-size: 0.85rem;
-        color: #555;
-        overflow-y: auto;
-      }
-  
-      .product-price {
-        flex: 0.8;
-        font-size: 1rem;
-        color: green;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-      }
   
       .add-to-cart {
         flex: 0.5;
