@@ -119,7 +119,7 @@
         margin: 10px 10px 0 10px;
       
         filter: brightness(100%);
-        transform: perspective(800px) rotateX(0deg);
+        transform: scale(1) translateZ(0);
         transform-style: preserve-3d;
       
         transition: 
@@ -128,18 +128,22 @@
       }
       
       .card:hover img {
-        filter: brightness(80%);
-        transform: perspective(800px) rotateX(-15deg) scale(1.2);
+        filter: brightness(60%);
+        transform: perspective(800px) rotateX(-15deg) scale(1.1) translateZ(100px);
         box-shadow: 0 30px 40px rgba(0, 0, 0, 0.4);
       }
-      
 
-      .card .title{
+
+      .card .product-name{
         width:100%;
         transition: transform 0.5s;
         color: black
       }
 
+      .card:hover .product-name{
+        transform: translate3d(0%, -97px, 0);
+        color:rgb(255, 255, 255);
+      }
 
        body .no-padding{
        padding-left: 0,
