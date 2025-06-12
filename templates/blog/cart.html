@@ -201,7 +201,7 @@
         {% endif %}
         <b>{{ item.quantity }}</b>
         <span>{{ cart_quantity }}</span>
-        {% if item.quantity < 6 %}
+        {% if item.quantity < item.product.max_order_quantity %}
           {% if item.product.adjusted_stock != 0 %}
         
             <form action="{% url 'cart:add_to_cart' item.product.id %}" method="post" style="display:inline;">
