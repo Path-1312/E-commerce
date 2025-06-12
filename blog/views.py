@@ -211,22 +211,16 @@ def edit_profile(request):
     return render(request, 'blog/edit_profile.html', {'user': request.user})
 
 
-def ckeckout(request, item_id):
+def checkout(request):
     if not request.user.is_authenticated:
         messages.warning(request, "You need to log in to buy items.")
         return redirect('/login/')
+    cart_items = CartItem.objects.filter(user=request.user)
     
-    cart_item, created = CartItem.objects.get_or_create(
-        user=request.user,
-        product_id=item_id,
-        defaults={'quantity': 1}
-    )
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
+    cart_quantities = get_cart_quantities(request)
+    params = index(cart_quantities)
     
-    return redirect('/checkout/')
-
+    return render(request, 'blog/checkout.html', params)
 
 
 def tracker(request):
@@ -237,8 +231,6 @@ def search(request):
     return HttpResponse("Search")
 
 
-def checkout(request):
-    return HttpResponse("Checkout")
 
 
 

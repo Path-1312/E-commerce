@@ -19,6 +19,7 @@ class Product(models.Model):
     price = models.IntegerField(validators=[MinValueValidator(0)])
     number_of_stock = models.IntegerField(validators=[MinValueValidator(0)])
     description = models.CharField(max_length=400, default='')
+    max_order_quantity = models.IntegerField(validators=[MinValueValidator(1)], default=10)
     published_date = models.DateField(default=datetime.date.today)
     image = models.FileField(
         upload_to='blog/images/',
