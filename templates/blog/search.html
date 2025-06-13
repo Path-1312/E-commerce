@@ -1,0 +1,31 @@
+{% extends "blog/basic.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block body %}
+{% load static %}
+
+<div class="container mt-4">
+    <h2>Search Results</h2>
+    <div class="row">
+        {% if search_results %}
+            {% for product in search_results %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description}}</p>
+                            <p class="card-text"><strong>Price:</strong> ${{ product.price }}</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No products found matching your search criteria.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
