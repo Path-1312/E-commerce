@@ -232,7 +232,9 @@ def search(request):
         return render(request, 'blog/search.html', {**params, 'cart_quantities': cart_quantities})
 
     products = Product.objects.filter(product_name__icontains=query) if query else Product.objects.none()
-
+    for product in products:
+        product.adjusted_stock = max(product.number_of_stock - cart_quantities.get(product.id, 0), 0)
+        
     if query and not products.exists():
         messages.warning(request, f"No results found for '{query}'.")
 
