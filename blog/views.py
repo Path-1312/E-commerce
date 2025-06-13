@@ -223,22 +223,28 @@ def checkout(request):
     return render(request, 'blog/checkout.html', params)
 
 def search(request):
-    query = request.GET.get('q', '')
+    query = request.GET.get('q', '').strip()
     cart_quantities = get_cart_quantities(request)
     params = index(cart_quantities)
-    
+
     if len(query) > 78:
         messages.warning(request, "Please enter a query with less than 78 characters.")
-        return render(request, 'blog/search.html', params)
-    
-    products = Product.objects.filter(product_name__icontains=query)
-    if not products.exists():
+        return render(request, 'blog/search.html', {**params, 'cart_quantities': cart_quantities})
+
+    products = Product.objects.filter(product_name__icontains=query) if query else Product.objects.none()
+
+    if query and not products.exists():
         messages.warning(request, f"No results found for '{query}'.")
-    
-    context = {'search_results': products, 'query': query, 'cart_quantities': cart_quantities}
-    context.update(params)
-    
+
+    context = {
+        'search_results': products,
+        'query': query,
+        'cart_quantities': cart_quantities,
+        **params,
+    }
+
     return render(request, 'blog/search.html', context)
+
 
 def tracker(request):
     return HttpResponse("Tracker")
