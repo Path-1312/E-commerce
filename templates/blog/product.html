@@ -13,9 +13,7 @@
     background-color:rgb(56, 81, 165);
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
     border-radius: 4px;
-    cursor: pointer;
     height: 50px;
     width: 150px;
   }
@@ -28,9 +26,7 @@
     background-color:rgb(56, 81, 165);
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
     border-radius: 4px;
-    cursor: pointer;
     height: 50px;
     width: 50px;
     margin-left: 0.62rem;
@@ -44,9 +40,7 @@
     background-color:rgb(165, 56, 56);
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
     border-radius: 4px;
-    cursor: pointer;
     height: 50px;
     width: 50px;
     margin-right: 0.62rem;
@@ -60,9 +54,7 @@
     background-color:rgb(165, 56, 56);
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
     border-radius: 4px;
-    cursor: pointer;
     height: 50px;
     width: 50px;
     margin-right: 0.62rem;
@@ -108,7 +100,7 @@
               <button type="submit" id="minus">−</button>
             </form>
             {% endif %}
-            <span style="font-size:2rem">{{ cart_quantity }}</span>
+            <span style="font-size:1.5rem">{{ cart_quantity }}</span>
             {% if cart_quantity < product.max_order_quantity %}
             <form action="{% url 'cart:add_to_cart' product.id %}" method="post" style="display:inline;">
               {% csrf_token %}
@@ -118,13 +110,21 @@
             {% endif %}
 
           {% else %}
-            <form action="{% url 'cart:add_to_cart' product.id %}" method="post">
+            <form action="{% url 'cart:add_to_cart' product.id %}" method="post" style="display:inline;">
               {% csrf_token %}
               <input type="hidden" name="quantity" value="1">
               <button type="submit" id="atc">Add To Cart</button>
             </form>
           {% endif %}
-          <span class="badge badge-dark">Stock left:{{product.number_of_stock}}</span>
+          <span class="badge badge-dark" style="margin-right: 50px">Stock left:{{product.number_of_stock}}</span>
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+              Quantity
+            </button>
+            <div class="dropdown-menu">
+              {% for i in quantity_range %}
+                <a class="dropdown-item" href="#">{{i}}</a>
+              {% endfor %}
+            </div>
 
           {% endwith %}
       {% else %}
@@ -147,7 +147,7 @@
                   <button type="submit" id="minus">−</button>
                 </form>
                 {% endif %}
-                <span style="font-size:2rem">{{ cart_quantity }}</span>
+                <span style="font-size:1.5rem">{{ cart_quantity }}</span>
                 {% endif %}
               {% endwith %}
 

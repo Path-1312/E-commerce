@@ -41,7 +41,7 @@
             </div>
           </li>
           <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'cart:Search' %}">
-            <input class="form-control mr-sm-2" value="{{query}}" name="q" type="text" placeholder="Search Product" aria-label="Search" style="width: 1194px; margin-left: 20px; margin-right: 10px;">
+            <input class="form-control mr-sm-2" value="{{query}}" name="q" type="text" placeholder="Search Product" aria-label="Search" style="width: 1214px;">            
             <button id="search" type="submit">Search</button>
           </form>
           <a href="/cart/">
@@ -224,7 +224,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0.5rem 1rem;
       }
   
     
@@ -232,10 +231,10 @@
         background-color:rgb(56, 81, 165);
         color: white;
         border: none;
-        padding: 0.5rem 1rem;
         border-radius: 4px;
-        cursor: pointer;
         font-size: 0.75em;
+        height: 30px;
+        width: 90px;
       }
   
       #atc:hover {
@@ -247,7 +246,6 @@
         color: white;
         border: none;
         border-radius: 4px;
-        cursor: pointer;
         height: 30px;
         width: 30px;
         margin-right: 0.25rem;
@@ -262,7 +260,6 @@
         color: white;
         border: none;
         border-radius: 4px;
-        cursor: pointer;
         height: 30px;
         width: 30px;
         margin-right: 0.25rem;
@@ -345,7 +342,9 @@
                       {% endif %}
   
                       {% if cart_quantity == 0 %}
-                      <span class="badge badge-secondary">Sold Out</span>
+                      <div style="margin: 2px auto 0; width: fit-content;">
+                        <span class="badge badge-secondary">Sold Out</span>
+                      </div>                   
                       {% endif %}
                     {% endwith %}
                     

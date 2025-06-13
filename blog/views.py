@@ -64,7 +64,9 @@ def prod(request, myid):
     quantity_in_cart = cart_quantities.get(product.id, 0)
     product.number_of_stock -= quantity_in_cart
     
-    param = {'product': product, 'cart_quantities': cart_quantities}
+    quantity_range = range(1, (product.max_order_quantity - quantity_in_cart) + 1)
+    
+    param = {'product': product, 'cart_quantities': cart_quantities, 'quantity_range': quantity_range}
     context = {**params, **param}
     return render(request, 'blog/product.html', context)
 
